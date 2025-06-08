@@ -1,0 +1,31 @@
+# Educational Compiler Test Program
+# This program demonstrates the basic features of our minimal language
+
+# Variable declarations with arithmetic expressions
+let x = 5 + 3;        # Should evaluate to 8
+let y = x * 2;        # Should be 16 (8 * 2)
+let z = y - 4;        # Should be 12 (16 - 4)
+
+# Demonstrate constant folding optimization
+let a = 10 + 5;       # This will be folded to 15 at compile time
+let b = a * 1;        # This will be optimized to just 'a'
+let c = b + 0;        # This will be optimized away
+
+# More complex expression
+let result = (x + y) * 2 - z;  # Should be (8 + 16) * 2 - 12 = 48 - 12 = 36
+
+# Print statements to show results
+print(x);       # Should print 8
+print(y);       # Should print 16
+print(z);       # Should print 12
+print(result);  # Should print 36
+
+# Test unary operators
+let negative = -5;
+let positive = +10;
+print(negative);  # Should print -5
+print(positive);  # Should print 10
+
+# Test with parentheses
+let complex = (3 + 2) * (4 - 1);  # Should be 5 * 3 = 15
+print(complex);   # Should print 15

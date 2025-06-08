@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizing Compiler Studio | Advanced Code Optimization Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000408 0%, #001328 25%, #002545 50%, #001833 75%, #000611 100%);
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            background: rgba(0, 15, 25, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+        
+        .glass-button-hero {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(0, 150, 255, 0.3));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 8px;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button-hero:hover {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.5), rgba(0, 150, 255, 0.5));
+            border-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .glass-button-secondary {
+            background: rgba(0, 20, 40, 0.6);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(100, 200, 255, 0.4);
+            border-radius: 8px;
+            color: #64c8ff;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button-secondary:hover {
+            border-color: rgba(100, 200, 255, 0.8);
+            box-shadow: 0 0 30px rgba(100, 200, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .hero-title {
+            animation: heroTitleFloat 6s ease-in-out infinite;
+        }
+        
+        .hero-subtitle {
+            animation: heroSubtitleFloat 6s ease-in-out infinite 1s;
+        }
+        
+        .hero-line {
+            animation: heroLineExpand 3s ease-out;
+        }
+        
+        .hero-description {
+            animation: heroFadeIn 1s ease-out 0.5s both;
+        }
+        
+        .hero-features {
+            animation: heroFadeIn 1s ease-out 1s both;
+        }
+        
+        .hero-buttons {
+            animation: heroFadeIn 1s ease-out 1.5s both;
+        }
+        
+        .feature-card {
+            animation: featureCardFloat 4s ease-in-out infinite;
+        }
+        
+        .feature-card:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        .feature-card:nth-child(3) {
+            animation-delay: 2s;
+        }
+        
+        @keyframes heroTitleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes heroSubtitleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes heroLineExpand {
+            0% { width: 0; }
+            100% { width: 8rem; }
+        }
+        
+        @keyframes heroFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes featureCardFloat {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-8px) rotateY(5deg); }
+        }
+        
+        .rotating-cube {
+            transform-style: preserve-3d;
+            animation: rotateCube 20s linear infinite;
+        }
+        
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.6), rgba(0, 255, 255, 0.1));
+            animation: floatOrb 8s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        @keyframes floatOrb {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+        }
+        
+        .cyber-text {
+            position: relative;
+        }
+        
+        .cyber-text::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: cyberSweep 3s ease-in-out infinite;
+        }
+        
+        @keyframes cyberSweep {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        #heroCanvas {
+            background: radial-gradient(ellipse at center, rgba(0, 50, 100, 0.1) 0%, rgba(0, 20, 40, 0.3) 100%);
+        }
+        
+        .logo-svg {
+            animation: logoRotate 20s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+        }
+        
+        @keyframes logoRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .logo-container:hover .logo-svg {
+            animation-duration: 2s;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+        }
+    </style>
+</head>
+<body class="min-h-screen relative">
+    <!-- Matrix Rain Effect -->
+    <canvas class="matrix-rain" id="matrixCanvas"></canvas>
+    
+    <!-- Hero Landing Page -->
+    <div id="heroPage" class="min-h-screen relative">
+        <!-- 3D Background Canvas -->
+        <canvas id="heroCanvas" class="absolute inset-0 w-full h-full"></canvas>
+        
+        <!-- Floating Orbs -->
+        <div class="floating-orb" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-orb" style="width: 80px; height: 80px; top: 70%; left: 80%; animation-delay: 2s;"></div>
+        <div class="floating-orb" style="width: 60px; height: 60px; top: 40%; left: 85%; animation-delay: 4s;"></div>
+        <div class="floating-orb" style="width: 120px; height: 120px; top: 80%; left: 15%; animation-delay: 6s;"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 min-h-screen flex items-center justify-center">
+            <div class="text-center max-w-6xl mx-auto px-6">
+                <!-- BiTS Connect Logo and Title -->
+                <div class="mb-8 relative">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="logo-container mr-6">
+                            <svg width="120" height="120" viewBox="0 0 400 400" class="logo-svg">
+                                <!-- CPU Chip Base -->
+                                <rect x="80" y="80" width="240" height="240" rx="20" ry="20" 
+                                      fill="none" stroke="#00ffff" stroke-width="6" opacity="0.8"/>
+                                
+                                <!-- CPU Pins -->
+                                <g stroke="#00ffff" stroke-width="4" opacity="0.9">
+                                    <!-- Top pins -->
+                                    <line x1="120" y1="80" x2="120" y2="40"/>
+                                    <line x1="160" y1="80" x2="160" y2="40"/>
+                                    <line x1="200" y1="80" x2="200" y2="40"/>
+                                    <line x1="240" y1="80" x2="240" y2="40"/>
+                                    <line x1="280" y1="80" x2="280" y2="40"/>
+                                    
+                                    <!-- Bottom pins -->
+                                    <line x1="120" y1="320" x2="120" y2="360"/>
+                                    <line x1="160" y1="320" x2="160" y2="360"/>
+                                    <line x1="200" y1="320" x2="200" y2="360"/>
+                                    <line x1="240" y1="320" x2="240" y2="360"/>
+                                    <line x1="280" y1="320" x2="280" y2="360"/>
+                                    
+                                    <!-- Left pins -->
+                                    <line x1="80" y1="120" x2="40" y2="120"/>
+                                    <line x1="80" y1="160" x2="40" y2="160"/>
+                                    <line x1="80" y1="200" x2="40" y2="200"/>
+                                    <line x1="80" y1="240" x2="40" y2="240"/>
+                                    <line x1="80" y1="280" x2="40" y2="280"/>
+                                    
+                                    <!-- Right pins -->
+                                    <line x1="320" y1="120" x2="360" y2="120"/>
+                                    <line x1="320" y1="160" x2="360" y2="160"/>
+                                    <line x1="320" y1="200" x2="360" y2="200"/>
+                                    <line x1="320" y1="240" x2="360" y2="240"/>
+                                    <line x1="320" y1="280" x2="360" y2="280"/>
+                                </g>
+                                
+                                <!-- Code Symbols -->
+                                <g fill="#00ffff" font-family="Orbitron" font-size="60" font-weight="bold">
+                                    <text x="140" y="220" opacity="0.9">&lt;</text>
+                                    <text x="180" y="220" opacity="0.9">/</text>
+                                    <text x="220" y="220" opacity="0.9">&gt;</text>
+                                </g>
+                                
+                                <!-- Glowing effects -->
+                                <defs>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                        <feMerge> 
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <rect x="80" y="80" width="240" height="240" rx="20" ry="20" 
+                                      fill="none" stroke="#00ffff" stroke-width="2" filter="url(#glow)"/>
+                            </svg>
+                        </div>
+                        <div class="text-center">
+                            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 mb-2 tracking-wider hero-title cyber-text" style="font-family: 'Orbitron', monospace;">
+                                BiTS Connect
+                            </h1>
+                            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-cyan-400 mb-4 hero-subtitle cyber-text" style="font-family: 'Orbitron', monospace;">
+                                COMPILER STUDIO
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="w-32 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 mx-auto mb-8 hero-line"></div>
+                </div>
+
+                <!-- Description -->
+                <p class="text-lg md:text-xl lg:text-2xl text-blue-200 mb-12 max-w-4xl mx-auto leading-relaxed hero-description" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">
+                    Advanced x86-64 optimizing compiler with real-time visualization, 
+                    performance benchmarking, and cutting-edge code optimization techniques.
+                </p>
+
+                <!-- Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 hero-features">
+                    <div class="glass-card p-6 feature-card transform perspective-1000">
+                        <div class="text-4xl mb-4 text-cyan-400">⚡</div>
+                        <h3 class="text-xl font-bold mb-2" style="font-family: 'Orbitron', monospace; color: #60a5fa;">REAL-TIME OPTIMIZATION</h3>
+                        <p style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Advanced multi-pass optimization with live performance metrics</p>
+                    </div>
+                    <div class="glass-card p-6 feature-card transform perspective-1000">
+                        <div class="text-4xl mb-4 text-blue-400">🎯</div>
+                        <h3 class="text-xl font-bold mb-2" style="font-family: 'Orbitron', monospace; color: #60a5fa;">VISUAL COMPILATION</h3>
+                        <p style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Interactive AST viewer and step-by-step pipeline visualization</p>
+                    </div>
+                    <div class="glass-card p-6 feature-card transform perspective-1000">
+                        <div class="text-4xl mb-4 text-blue-500">📊</div>
+                        <h3 class="text-xl font-bold mb-2" style="font-family: 'Orbitron', monospace; color: #60a5fa;">PERFORMANCE ANALYSIS</h3>
+                        <p style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Comprehensive benchmarking across optimization levels</p>
+                    </div>
+                </div>
+
+                <!-- Technology Stack -->
+                <div class="mb-12 hero-features">
+                    <h3 class="text-2xl font-bold mb-6" style="font-family: 'Orbitron', monospace; color: #60a5fa;">POWERED BY ADVANCED TECHNOLOGY</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="glass-card px-4 py-2" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Python Compiler Backend</span>
+                        <span class="glass-card px-4 py-2" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">x86-64 Assembly Target</span>
+                        <span class="glass-card px-4 py-2" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Three.js 3D Graphics</span>
+                        <span class="glass-card px-4 py-2" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Real-time WebSocket</span>
+                        <span class="glass-card px-4 py-2" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Interactive Visualizations</span>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center hero-buttons">
+                    <button id="enterStudioBtn" class="glass-button-hero px-12 py-4 text-xl font-bold transform hover:scale-105 transition-all duration-300" style="font-family: 'Orbitron', monospace;">
+                        <span class="flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            ENTER STUDIO
+                        </span>
+                    </button>
+                    <button id="watchDemoBtn" class="glass-button-secondary px-12 py-4 text-xl font-bold transform hover:scale-105 transition-all duration-300" style="font-family: 'Orbitron', monospace;">
+                        <span class="flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a1 1 0 001 1h4a1 1 0 001-1v-4M9 10V9a1 1 0 011-1h4a1 1 0 011 1v1"></path>
+                            </svg>
+                            LIVE DEMO
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 hero-features">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="font-family: 'Orbitron', monospace; color: #60a5fa;">95%</div>
+                        <div style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Code Optimization</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="font-family: 'Orbitron', monospace; color: #60a5fa;">4</div>
+                        <div style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Optimization Levels</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="font-family: 'Orbitron', monospace; color: #60a5fa;">∞</div>
+                        <div style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Compilation Passes</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" style="font-family: 'Orbitron', monospace; color: #60a5fa;">x86-64</div>
+                        <div style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">Assembly Target</div>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" style="color: #60a5fa;">
+                    <div class="w-6 h-10 border-2 rounded-full flex justify-center" style="border-color: #60a5fa;">
+                        <div class="w-1 h-3 rounded-full mt-2 animate-pulse" style="background-color: #60a5fa;"></div>
+                    </div>
+                    <p class="text-xs mt-2" style="font-family: 'Rajdhani', sans-serif; color: #93c5fd;">SCROLL TO EXPLORE</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        function initMatrixRain() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+            const chars = matrix.split("");
+            
+            const fontSize = 10;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for(let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 4, 8, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = 'rgba(0, 255, 255, 0.5)';
+                ctx.font = fontSize + 'px monospace';
+                
+                for(let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 35);
+        }
+        
+        // 3D Hero Scene
+        function init3DScene() {
+            const canvas = document.getElementById('heroCanvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            // Create rotating geometric shapes
+            const geometries = [
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.OctahedronGeometry(1),
+                new THREE.TetrahedronGeometry(1),
+                new THREE.IcosahedronGeometry(1)
+            ];
+            
+            const materials = [
+                new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true, transparent: true, opacity: 0.6 }),
+                new THREE.MeshBasicMaterial({ color: 0x0080ff, wireframe: true, transparent: true, opacity: 0.5 }),
+                new THREE.MeshBasicMaterial({ color: 0x8000ff, wireframe: true, transparent: true, opacity: 0.4 }),
+                new THREE.MeshBasicMaterial({ color: 0x00ff80, wireframe: true, transparent: true, opacity: 0.3 })
+            ];
+            
+            const meshes = [];
+            
+            for(let i = 0; i < 4; i++) {
+                const mesh = new THREE.Mesh(geometries[i], materials[i]);
+                mesh.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10
+                );
+                mesh.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                scene.add(mesh);
+                meshes.push(mesh);
+            }
+            
+            camera.position.z = 15;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                meshes.forEach((mesh, index) => {
+                    mesh.rotation.x += 0.005 + index * 0.002;
+                    mesh.rotation.y += 0.005 + index * 0.002;
+                    mesh.rotation.z += 0.003 + index * 0.001;
+                    
+                    // Floating motion
+                    mesh.position.y += Math.sin(Date.now() * 0.001 + index) * 0.02;
+                    mesh.position.x += Math.cos(Date.now() * 0.0008 + index) * 0.01;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initMatrixRain();
+            init3DScene();
+            
+            // Button event handlers
+            document.getElementById('enterStudioBtn').addEventListener('click', function() {
+                window.location.href = '/?studio=true';
+            });
+            
+            document.getElementById('watchDemoBtn').addEventListener('click', function() {
+                // Auto-compile demo code when entering studio
+                localStorage.setItem('autoDemo', 'true');
+                window.location.href = '/';
+            });
+            
+            // Parallax effect for floating orbs
+            document.addEventListener('mousemove', function(e) {
+                const orbs = document.querySelectorAll('.floating-orb');
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                orbs.forEach((orb, index) => {
+                    const speed = (index + 1) * 0.5;
+                    const x = (mouseX - 0.5) * speed * 50;
+                    const y = (mouseY - 0.5) * speed * 30;
+                    orb.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
