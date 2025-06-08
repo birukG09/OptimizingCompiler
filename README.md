@@ -68,7 +68,7 @@ Translation Speed
 
 Code Size Reduction
 
-Instruction Count Efficiency
+Instruction Count Efficiency.
 
 Execution Performance (if testable)
 
