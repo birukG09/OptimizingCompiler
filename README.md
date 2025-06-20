@@ -54,5 +54,31 @@ It supports multiple optimization levels and includes benchmark modules to measu
 | Benchmarks| Python-based testing & reporting framework|
 
 
+git clone https://github.com/birukG09/OptimizingCompiler.git
+cd OptimizingCompiler
+📊 Benchmarks
+The system includes four benchmarks:
 
+Translation Speed
+
+Code Size Reduction
+
+Instruction Count Efficiency.
+
+Execution Performance (if testable)
+
+Results are output in tabular and graphical form via CLI or admin dashboard.
+
+👨‍💻 Contributing
+Contributions are welcome! Please:
+
+Fork the repo
+
+Create a new branch
+
+Submit a pull request with detailed info
+
+📬 Contact
+Created by Biruk Gebre
+GitHub: https://github.com/birukG09
 
