@@ -5,7 +5,7 @@ Built with a **Flask backend** and a frontend using **HTML, CSS, and JavaScript*
 
 It supports multiple optimization levels and includes benchmark modules to measure performance, size, and transformation accuracy.
 
----
+
 
 ## 🚀 Features
 
@@ -53,9 +53,6 @@ It supports multiple optimization levels and includes benchmark modules to measu
 | Compiler  | Custom x86 → x86_64 engine + optimizers   |
 | Benchmarks| Python-based testing & reporting framework|
 
----
 
-## 📸 Screenshot
 
-![Screenshot](static/images/screenshot.png)
 
