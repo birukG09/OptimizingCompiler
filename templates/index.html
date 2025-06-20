@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Home - OptimizingCompiler{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <div class="hero-content animate-fade-in">
+                    <h1 class="hero-title">
+                        <span class="text-primary">Optimizing</span>Compiler
+                    </h1>
+                    <h2 class="hero-subtitle">x86 to x86_64 Assembly Compiler</h2>
+                    <p class="hero-description">
+                        Transform your 32-bit x86 assembly code into highly optimized 64-bit x86_64 machine code. 
+                        Experience up to <strong class="text-success">1.5× faster performance</strong> with advanced 
+                        CPU features and modern optimizations.
+                    </p>
+                    
+                    <div class="feature-highlights mb-4">
+                        <div class="feature-item animate-slide-up" style="animation-delay: 0.2s;">
+                            <i class="fas fa-rocket text-warning"></i>
+                            <span>Up to 1.5× faster performance</span>
+                        </div>
+                        <div class="feature-item animate-slide-up" style="animation-delay: 0.4s;">
+                            <i class="fas fa-brain text-info"></i>
+                            <span>Advanced CPU feature utilization</span>
+                        </div>
+                        <div class="feature-item animate-slide-up" style="animation-delay: 0.6s;">
+                            <i class="fas fa-sync-alt text-success"></i>
+                            <span>SIMD, loop unrolling, dead code elimination</span>
+                        </div>
+                        <div class="feature-item animate-slide-up" style="animation-delay: 0.8s;">
+                            <i class="fas fa-lightbulb text-primary"></i>
+                            <span>Modern 64-bit system compatibility</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions animate-fade-in" style="animation-delay: 1s;">
+                        <a href="{{ url_for('compiler') }}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-code me-2"></i>Start Compiling
+                        </a>
+                        <a href="{{ url_for('about') }}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-info-circle me-2"></i>Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="hero-visual animate-float">
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <div class="code-buttons">
+                                <div class="code-button red"></div>
+                                <div class="code-button yellow"></div>
+                                <div class="code-button green"></div>
+                            </div>
+                            <span class="code-title">assembly.asm</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-asm">; x86 Input
+mov eax, ebx
+add eax, 5
+push eax
+pop ecx
+
+; x86_64 Optimized Output  
+mov rax, rbx
+lea rax, [rbx+5]    ; Optimized
+; push/pop eliminated</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Optimization Levels Section -->
+<section class="optimization-levels-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Optimization Levels</h2>
+            <p class="section-subtitle">Choose the right optimization level for your needs</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="optimization-levels-row">
+                    <div class="optimization-level-item animate-scale-in" style="animation-delay: 0.1s;">
+                        <div class="level-badge level-none">NONE</div>
+                        <div class="level-icon">
+                            <i class="fas fa-times-circle text-secondary"></i>
+                        </div>
+                        <h6 class="level-title">No Optimization</h6>
+                        <p class="level-description">Raw translation without transformations</p>
+                        <div class="level-stats">
+                            <span class="performance-indicator">1.0×</span>
+                            <small>baseline</small>
+                        </div>
+                    </div>
+                    
+                    <div class="optimization-level-item animate-scale-in" style="animation-delay: 0.2s;">
+                        <div class="level-badge level-basic">BASIC</div>
+                        <div class="level-icon">
+                            <i class="fas fa-puzzle-piece text-info"></i>
+                        </div>
+                        <h6 class="level-title">Basic Optimization</h6>
+                        <p class="level-description">Removes redundant instructions</p>
+                        <div class="level-stats">
+                            <span class="performance-indicator">1.1×</span>
+                            <small>faster</small>
+                        </div>
+                    </div>
+                    
+                    <div class="optimization-level-item animate-scale-in" style="animation-delay: 0.3s;">
+                        <div class="level-badge level-standard">STANDARD</div>
+                        <div class="level-icon">
+                            <i class="fas fa-tools text-warning"></i>
+                        </div>
+                        <h6 class="level-title">Standard Optimization</h6>
+                        <p class="level-description">Constant folding, register reuse</p>
+                        <div class="level-stats">
+                            <span class="performance-indicator">1.3×</span>
+                            <small>faster</small>
+                        </div>
+                    </div>
+                    
+                    <div class="optimization-level-item animate-scale-in" style="animation-delay: 0.4s;">
+                        <div class="level-badge level-aggressive">AGGRESSIVE</div>
+                        <div class="level-icon">
+                            <i class="fas fa-fire text-danger"></i>
+                        </div>
+                        <h6 class="level-title">Aggressive Optimization</h6>
+                        <p class="level-description">Loop unrolling, instruction reordering</p>
+                        <div class="level-stats">
+                            <span class="performance-indicator">1.5×</span>
+                            <small>faster</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Stack Section -->
+<section class="tech-stack-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Technology Stack</h2>
+            <p class="section-subtitle">Built with modern web technologies and custom compiler engine</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="tech-card animate-fade-in" style="animation-delay: 0.1s;">
+                    <i class="fab fa-python text-warning"></i>
+                    <h6>Python Flask</h6>
+                    <p>Backend framework handling compilation requests and optimization engine</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="tech-card animate-fade-in" style="animation-delay: 0.2s;">
+                    <i class="fab fa-html5 text-danger"></i>
+                    <h6>HTML5 & CSS3</h6>
+                    <p>Modern frontend with VS Code dark theme and responsive design</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="tech-card animate-fade-in" style="animation-delay: 0.3s;">
+                    <i class="fas fa-microchip text-primary"></i>
+                    <h6>Custom Compiler</h6>
+                    <p>x86 to x86_64 translation engine with multiple optimization passes</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="tech-card animate-fade-in" style="animation-delay: 0.4s;">
+                    <i class="fas fa-chart-line text-success"></i>
+                    <h6>Benchmark System</h6>
+                    <p>Performance testing and reporting framework for optimization analysis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Initialize animations and code highlighting
+document.addEventListener('DOMContentLoaded', function() {
+    // Trigger animations on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in-view');
+            }
+        });
+    });
+
+    document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-scale-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Highlight code
+    if (typeof Prism !== 'undefined') {
+        Prism.highlightAll();
+    }
+});
+</script>
+{% endblock %}

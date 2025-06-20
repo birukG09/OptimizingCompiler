@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}About - OptimizingCompiler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Header Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="text-center animate-fade-in">
+                <h1 class="display-4 mb-3">
+                    <i class="fas fa-info-circle text-primary me-3"></i>
+                    About OptimizingCompiler
+                </h1>
+                <p class="lead text-muted">
+                    Understanding how our x86 to x86_64 assembly compiler works and delivers superior performance
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Description -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="about-content animate-slide-up">
+                <h2 class="h3 text-primary mb-4">What is OptimizingCompiler?</h2>
+                <p class="mb-4">
+                    OptimizingCompiler upgrades 32-bit x86 code to efficient 64-bit (x86-64) code. 
+                    Tested across four comprehensive benchmarks, it delivers exceptional performance improvements 
+                    by leveraging modern CPU features and advanced optimization techniques.
+                </p>
+                <div class="performance-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-rocket text-warning"></i>
+                        <strong>Up to 1.5× faster performance</strong> using advanced CPU features
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-brain text-info"></i>
+                        <strong>Smarter memory usage</strong> with support for large datasets  
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-sync-alt text-success"></i>
+                        <strong>Modern optimizations</strong> like SIMD, loop unrolling, and dead code elimination
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-lightbulb text-primary"></i>
+                        <strong>Better compatibility</strong> with today's 64-bit systems
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5 text-primary">How It Works</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step animate-scale-in" style="animation-delay: 0.1s;">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-file-code text-info"></i>
+                        </div>
+                        <h5>Input Processing</h5>
+                        <p>Parse and validate x86 assembly code, identifying instructions and operands for translation.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step animate-scale-in" style="animation-delay: 0.2s;">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-exchange-alt text-warning"></i>
+                        </div>
+                        <h5>Architecture Translation</h5>
+                        <p>Convert 32-bit x86 registers and instructions to their 64-bit x86_64 equivalents.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step animate-scale-in" style="animation-delay: 0.3s;">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-cogs text-success"></i>
+                        </div>
+                        <h5>Optimization Passes</h5>
+                        <p>Apply selected optimization level with techniques like constant folding and instruction reordering.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step animate-scale-in" style="animation-delay: 0.4s;">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-chart-bar text-danger"></i>
+                        </div>
+                        <h5>Benchmarking</h5>
+                        <p>Measure performance improvements and provide detailed analysis of optimization effectiveness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optimization Techniques -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="text-center mb-5 text-primary">Advanced Optimization Techniques</h2>
+            
+            <div class="optimization-techniques">
+                <div class="technique-item animate-fade-in" style="animation-delay: 0.1s;">
+                    <div class="technique-header">
+                        <i class="fas fa-eraser text-warning"></i>
+                        <h5>Dead Code Elimination</h5>
+                    </div>
+                    <p>Removes unused instructions and unreachable code segments to reduce binary size and improve performance.</p>
+                </div>
+                
+                <div class="technique-item animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="technique-header">
+                        <i class="fas fa-calculator text-info"></i>
+                        <h5>Constant Folding</h5>
+                    </div>
+                    <p>Evaluates constant expressions at compile time, replacing them with their computed values.</p>
+                </div>
+                
+                <div class="technique-item animate-fade-in" style="animation-delay: 0.3s;">
+                    <div class="technique-header">
+                        <i class="fas fa-redo text-success"></i>
+                        <h5>Loop Unrolling</h5>
+                    </div>
+                    <p>Reduces loop overhead by duplicating loop body instructions, improving execution speed.</p>
+                </div>
+                
+                <div class="technique-item animate-fade-in" style="animation-delay: 0.4s;">
+                    <div class="technique-header">
+                        <i class="fas fa-microchip text-primary"></i>
+                        <h5>SIMD Optimization</h5>
+                    </div>
+                    <p>Utilizes Single Instruction, Multiple Data operations for parallel processing of data sets.</p>
+                </div>
+                
+                <div class="technique-item animate-fade-in" style="animation-delay: 0.5s;">
+                    <div class="technique-header">
+                        <i class="fas fa-sort text-danger"></i>
+                        <h5>Instruction Reordering</h5>
+                    </div>
+                    <p>Rearranges instructions to minimize pipeline stalls and maximize CPU utilization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benchmark Framework -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5 text-primary">Four-Stage Benchmark Framework</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="benchmark-card animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="benchmark-icon">
+                            <i class="fas fa-ruler text-info"></i>
+                        </div>
+                        <h5>Code Size Analysis</h5>
+                        <p>Measures instruction count reduction and binary size optimization to evaluate compilation efficiency.</p>
+                        <div class="benchmark-metrics">
+                            <span class="metric">Instruction Count</span>
+                            <span class="metric">Size Reduction %</span>
+                            <span class="metric">Efficiency Rating</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="benchmark-card animate-slide-up" style="animation-delay: 0.2s;">
+                        <div class="benchmark-icon">
+                            <i class="fas fa-stopwatch text-warning"></i>
+                        </div>
+                        <h5>Compile Time Measurement</h5>
+                        <p>Tracks compilation speed across different optimization levels to balance performance vs. compile time.</p>
+                        <div class="benchmark-metrics">
+                            <span class="metric">Compilation Time</span>
+                            <span class="metric">Optimization Overhead</span>
+                            <span class="metric">Speed Rating</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="benchmark-card animate-slide-up" style="animation-delay: 0.3s;">
+                        <div class="benchmark-icon">
+                            <i class="fas fa-tachometer-alt text-success"></i>
+                        </div>
+                        <h5>Runtime Performance</h5>
+                        <p>Evaluates actual execution speed improvements and optimization effectiveness in real-world scenarios.</p>
+                        <div class="benchmark-metrics">
+                            <span class="metric">Performance Gain</span>
+                            <span class="metric">Optimization Score</span>
+                            <span class="metric">Effectiveness %</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="benchmark-card animate-slide-up" style="animation-delay: 0.4s;">
+                        <div class="benchmark-icon">
+                            <i class="fas fa-microchip text-danger"></i>
+                        </div>
+                        <h5>x64 Feature Utilization</h5>
+                        <p>Analyzes usage of x86_64 specific features like extended registers and advanced instruction sets.</p>
+                        <div class="benchmark-metrics">
+                            <span class="metric">Features Detected</span>
+                            <span class="metric">Utilization %</span>
+                            <span class="metric">Readiness Score</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Information -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="developer-section animate-fade-in text-center">
+                <h2 class="text-primary mb-4">Developer</h2>
+                <div class="developer-card">
+                    <div class="developer-avatar">
+                        <i class="fas fa-user-circle text-primary"></i>
+                    </div>
+                    <h4 class="mb-2">Biruk Gebre</h4>
+                    <p class="text-muted mb-3">Software Engineer & Compiler Enthusiast</p>
+                    <div class="developer-links">
+                        <a href="https://github.com/birukG09" target="_blank" class="btn btn-outline-primary">
+                            <i class="fab fa-github me-2"></i>
+                            View GitHub Profile
+                        </a>
+                    </div>
+                    <div class="developer-bio mt-4">
+                        <p class="text-muted">
+                            Computer Science student with focus on systems programming and compiler design. 
+                            This project demonstrates practical application of assembly language optimization 
+                            techniques and modern web development frameworks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate elements on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in-view');
+            }
+        });
+    });
+
+    document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-scale-in').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}

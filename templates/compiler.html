@@ -1,0 +1,530 @@
+{% extends "base.html" %}
+
+{% block title %}Compiler - OptimizingCompiler{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-5 mb-3">
+                    <i class="fas fa-code text-primary me-3"></i>
+                    Assembly Compiler
+                </h1>
+                <p class="lead text-muted">
+                    Convert your x86 assembly code to optimized x86_64 with real-time compilation and benchmarking
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compiler Interface -->
+    <div class="row">
+        <div class="col-12">
+            <form id="compilerForm" class="compiler-form">
+                <div class="row g-4">
+                    <!-- Input Section -->
+                    <div class="col-lg-6">
+                        <div class="compiler-panel">
+                            <div class="panel-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-edit me-2"></i>
+                                    x86 Assembly Input
+                                </h5>
+                                <div class="panel-actions">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="clearInput">
+                                        <i class="fas fa-trash-alt me-1"></i>Clear
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-info" id="loadSample">
+                                        <i class="fas fa-file-import me-1"></i>Sample
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <textarea 
+                                    id="assemblyInput" 
+                                    name="assembly_code" 
+                                    class="form-control code-editor" 
+                                    rows="12" 
+                                    placeholder="Enter your x86 assembly code here...
+
+Example:
+mov eax, ebx
+add eax, 5  
+push eax
+pop ecx
+mul eax, 2"
+                                    required
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Section -->
+                    <div class="col-lg-6">
+                        <div class="compiler-panel">
+                            <div class="panel-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-microchip me-2"></i>
+                                    x86_64 Optimized Output
+                                </h5>
+                                <div class="panel-actions">
+                                    <button type="button" class="btn btn-sm btn-outline-success" id="copyOutput" disabled>
+                                        <i class="fas fa-copy me-1"></i>Copy
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="downloadOutput" disabled>
+                                        <i class="fas fa-download me-1"></i>Download
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <pre id="assemblyOutput" class="code-output"><code class="language-asm">Compiled code will appear here...</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optimization Controls -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="optimization-controls">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <label for="optimizationLevel" class="form-label">
+                                        <i class="fas fa-cogs me-2"></i>
+                                        Optimization Level
+                                    </label>
+                                    <select id="optimizationLevel" name="optimization_level" class="form-select">
+                                        <option value="none">❌ No Optimization</option>
+                                        <option value="basic">🧩 Basic Optimization</option>
+                                        <option value="standard" selected>🛠️ Standard Optimization</option>
+                                        <option value="aggressive">🔥 Aggressive Optimization</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100" id="compileBtn">
+                                        <i class="fas fa-play me-2"></i>
+                                        Compile & Optimize
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="row mt-5" id="resultsSection" style="display: none;">
+        <!-- Compilation Stats -->
+        <div class="col-lg-4 mb-4">
+            <div class="stats-card">
+                <div class="stats-header">
+                    <h6><i class="fas fa-chart-line me-2"></i>Compilation Stats</h6>
+                </div>
+                <div class="stats-body" id="compilationStats">
+                    <!-- Stats will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="col-lg-4 mb-4">
+            <div class="stats-card">
+                <div class="stats-header">
+                    <h6><i class="fas fa-tachometer-alt me-2"></i>Performance Metrics</h6>
+                </div>
+                <div class="stats-body" id="performanceMetrics">
+                    <!-- Metrics will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Optimization Report -->
+        <div class="col-lg-4 mb-4">
+            <div class="stats-card">
+                <div class="stats-header">
+                    <h6><i class="fas fa-award me-2"></i>Optimization Report</h6>
+                </div>
+                <div class="stats-body" id="optimizationReport">
+                    <!-- Report will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benchmark Results -->
+    <div class="row mt-4" id="benchmarkSection" style="display: none;">
+        <div class="col-12">
+            <div class="benchmark-panel">
+                <div class="panel-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Benchmark Results
+                    </h5>
+                </div>
+                <div class="panel-body" id="benchmarkResults">
+                    <!-- Benchmark results will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Display -->
+    <div class="row mt-3" id="errorSection" style="display: none;">
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert" id="errorMessage">
+                <!-- Error message will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('compilerForm');
+    const inputTextarea = document.getElementById('assemblyInput');
+    const outputPre = document.getElementById('assemblyOutput');
+    const compileBtn = document.getElementById('compileBtn');
+    const resultsSection = document.getElementById('resultsSection');
+    const benchmarkSection = document.getElementById('benchmarkSection');
+    const errorSection = document.getElementById('errorSection');
+
+    // Sample code for demo
+    const sampleCode = `; x86 Assembly Example
+mov eax, ebx
+add eax, 5
+push eax
+pop ecx
+mul eax, 2
+mov edx, 0
+div ecx
+sub eax, 1`;
+
+    // Load sample code
+    document.getElementById('loadSample').addEventListener('click', function() {
+        inputTextarea.value = sampleCode;
+        if (typeof Prism !== 'undefined') {
+            Prism.highlightAll();
+        }
+    });
+
+    // Clear input
+    document.getElementById('clearInput').addEventListener('click', function() {
+        inputTextarea.value = '';
+        hideResults();
+    });
+
+    // Copy output
+    document.getElementById('copyOutput').addEventListener('click', function() {
+        const text = outputPre.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Code copied to clipboard!', 'success');
+        });
+    });
+
+    // Download output
+    document.getElementById('downloadOutput').addEventListener('click', function() {
+        const text = outputPre.textContent;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'optimized_assembly.asm';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        compileCode();
+    });
+
+    function compileCode() {
+        const formData = new FormData(form);
+        
+        // Show loading state
+        compileBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Compiling...';
+        compileBtn.disabled = true;
+        hideResults();
+
+        fetch('/compile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayResults(data);
+            } else {
+                displayError(data.error || 'Compilation failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            displayError('Network error occurred during compilation');
+        })
+        .finally(() => {
+            // Reset button state
+            compileBtn.innerHTML = '<i class="fas fa-play me-2"></i>Compile & Optimize';
+            compileBtn.disabled = false;
+        });
+    }
+
+    function displayResults(data) {
+        // Display compiled code
+        outputPre.innerHTML = `<code class="language-asm">${escapeHtml(data.compiled_code)}</code>`;
+        
+        // Enable action buttons
+        document.getElementById('copyOutput').disabled = false;
+        document.getElementById('downloadOutput').disabled = false;
+
+        // Display compilation stats
+        displayCompilationStats(data);
+        
+        // Display performance metrics
+        displayPerformanceMetrics(data);
+        
+        // Display optimization report
+        displayOptimizationReport(data);
+        
+        // Display benchmark results if available
+        if (data.benchmarks) {
+            displayBenchmarkResults(data.benchmarks);
+        }
+
+        // Show results section
+        resultsSection.style.display = 'block';
+        hideError();
+
+        // Highlight syntax
+        if (typeof Prism !== 'undefined') {
+            Prism.highlightAll();
+        }
+    }
+
+    function displayCompilationStats(data) {
+        const stats = document.getElementById('compilationStats');
+        const original = data.instruction_count.original;
+        const optimized = data.instruction_count.optimized;
+        const reduction = ((original - optimized) / original * 100).toFixed(1);
+
+        stats.innerHTML = `
+            <div class="stat-item">
+                <span class="stat-label">Original Instructions:</span>
+                <span class="stat-value">${original}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Optimized Instructions:</span>
+                <span class="stat-value">${optimized}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Size Reduction:</span>
+                <span class="stat-value text-success">${reduction}%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Optimization Level:</span>
+                <span class="stat-value text-primary">${data.optimization_level}</span>
+            </div>
+        `;
+    }
+
+    function displayPerformanceMetrics(data) {
+        const metrics = document.getElementById('performanceMetrics');
+        const improvements = data.improvements;
+
+        metrics.innerHTML = `
+            <div class="stat-item">
+                <span class="stat-label">Performance Gain:</span>
+                <span class="stat-value text-warning">${improvements.estimated_performance_gain.toFixed(1)}%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Size Reduction:</span>
+                <span class="stat-value text-info">${improvements.size_reduction_percent}%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">x64 Features:</span>
+                <span class="stat-value text-success">${improvements.x64_features_utilized.length}</span>
+            </div>
+            <div class="feature-list mt-2">
+                ${improvements.x64_features_utilized.map(feature => 
+                    `<span class="badge bg-primary me-1">${feature}</span>`
+                ).join('')}
+            </div>
+        `;
+    }
+
+    function displayOptimizationReport(data) {
+        const report = document.getElementById('optimizationReport');
+        const improvements = data.improvements;
+        
+        let grade = 'A';
+        if (improvements.estimated_performance_gain < 10) grade = 'B';
+        if (improvements.estimated_performance_gain < 5) grade = 'C';
+        if (improvements.estimated_performance_gain < 1) grade = 'D';
+
+        report.innerHTML = `
+            <div class="stat-item">
+                <span class="stat-label">Overall Grade:</span>
+                <span class="stat-value grade-${grade.toLowerCase()}">${grade}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Optimization Score:</span>
+                <span class="stat-value">${Math.min(improvements.estimated_performance_gain * 2, 100).toFixed(0)}/100</span>
+            </div>
+            <div class="recommendations mt-2">
+                <small class="text-muted">
+                    ${improvements.estimated_performance_gain > 20 ? 
+                        'Excellent optimization results!' : 
+                        'Consider using higher optimization levels for better performance.'
+                    }
+                </small>
+            </div>
+        `;
+    }
+
+    function displayBenchmarkResults(benchmarks) {
+        const results = document.getElementById('benchmarkResults');
+        
+        let benchmarkHtml = '<div class="row g-3">';
+        
+        // Code Size Benchmark
+        if (benchmarks.stages.code_size) {
+            const codeSize = benchmarks.stages.code_size;
+            benchmarkHtml += `
+                <div class="col-md-3">
+                    <div class="benchmark-item">
+                        <h6><i class="fas fa-ruler text-info me-2"></i>Code Size</h6>
+                        <div class="benchmark-metric">
+                            <span class="metric-value">${codeSize.size_reduction_percent}%</span>
+                            <span class="metric-label">Reduction</span>
+                        </div>
+                        <div class="rating">Rating: ${codeSize.efficiency_rating}/10</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Compile Time Benchmark
+        if (benchmarks.stages.compile_time) {
+            const compileTime = benchmarks.stages.compile_time;
+            benchmarkHtml += `
+                <div class="col-md-3">
+                    <div class="benchmark-item">
+                        <h6><i class="fas fa-stopwatch text-warning me-2"></i>Compile Time</h6>
+                        <div class="benchmark-metric">
+                            <span class="metric-value">${compileTime.compilation_time_ms}ms</span>
+                            <span class="metric-label">Duration</span>
+                        </div>
+                        <div class="rating">Rating: ${compileTime.performance_rating}/10</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Optimization Effectiveness
+        if (benchmarks.stages.optimization) {
+            const optimization = benchmarks.stages.optimization;
+            benchmarkHtml += `
+                <div class="col-md-3">
+                    <div class="benchmark-item">
+                        <h6><i class="fas fa-cogs text-success me-2"></i>Optimization</h6>
+                        <div class="benchmark-metric">
+                            <span class="metric-value">${optimization.effectiveness_percent}%</span>
+                            <span class="metric-label">Effectiveness</span>
+                        </div>
+                        <div class="rating">Score: ${optimization.optimization_score.toFixed(1)}/10</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // x64 Features
+        if (benchmarks.stages.x64_features) {
+            const x64Features = benchmarks.stages.x64_features;
+            benchmarkHtml += `
+                <div class="col-md-3">
+                    <div class="benchmark-item">
+                        <h6><i class="fas fa-microchip text-danger me-2"></i>x64 Features</h6>
+                        <div class="benchmark-metric">
+                            <span class="metric-value">${x64Features.utilization_percent}%</span>
+                            <span class="metric-label">Utilization</span>
+                        </div>
+                        <div class="rating">Score: ${x64Features.x64_readiness_score}/10</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        benchmarkHtml += '</div>';
+
+        // Overall Score
+        if (benchmarks.overall_score) {
+            benchmarkHtml += `
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="overall-score">
+                            <h6>Overall Performance</h6>
+                            <div class="score-display">
+                                <span class="score-value">${benchmarks.overall_score.overall_rating}/10</span>
+                                <span class="score-grade">${benchmarks.overall_score.performance_grade}</span>
+                            </div>
+                            <div class="recommendations">
+                                ${benchmarks.overall_score.recommendations.map(rec => 
+                                    `<div class="recommendation"><i class="fas fa-lightbulb me-2"></i>${rec}</div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        results.innerHTML = benchmarkHtml;
+        benchmarkSection.style.display = 'block';
+    }
+
+    function displayError(message) {
+        document.getElementById('errorMessage').innerHTML = `
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Compilation Error:</strong> ${escapeHtml(message)}
+        `;
+        errorSection.style.display = 'block';
+        hideResults();
+    }
+
+    function hideResults() {
+        resultsSection.style.display = 'none';
+        benchmarkSection.style.display = 'none';
+    }
+
+    function hideError() {
+        errorSection.style.display = 'none';
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function showToast(message, type = 'info') {
+        // Simple toast notification
+        const toast = document.createElement('div');
+        toast.className = `alert alert-${type} position-fixed top-0 end-0 m-3`;
+        toast.style.zIndex = '9999';
+        toast.innerHTML = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
+});
+</script>
+{% endblock %}
